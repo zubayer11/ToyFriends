@@ -1,6 +1,6 @@
 import React from "react";
 import { ActivityIndicator } from "react-native";
-import { AnimatedCircularProgress } from "react-native-circular-progress";
+
 const CircularProgressTracker = () => {
   return (
     <ActivityIndicator
