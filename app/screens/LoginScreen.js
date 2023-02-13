@@ -5,24 +5,20 @@ import {
   StyleSheet,
   Text,
   View,
-  Button as RNButton,
   Alert,
 } from "react-native";
 
-import { Button, InputField, ErrorMessage } from "../components";
-import Firebase from "../config/firebase";
-import { AnimatedCircularProgress } from "react-native-circular-progress";
-import colors from "../config/colors";
+import { Button, InputField } from "../components";
+import auth from "../configs/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import colors from "../configs/colors";
 import CircularProgressTracker from "../components/CircularProgressTracker";
-
-const auth = Firebase.auth();
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState("eye");
-  const [loginError, setLoginError] = useState("");
   const [busy, setBusy] = useState(false);
   const handlePasswordVisibility = () => {
     if (rightIcon === "eye") {
@@ -39,7 +35,7 @@ export default function LoginScreen({ navigation }) {
     try {
       if (email !== "" && password !== "") {
         auth.signOut();
-        await auth.signInWithEmailAndPassword(email, password);
+        await signInWithEmailAndPassword(auth, email, password);
         if (
           auth.currentUser !== null &&
           auth.currentUser.emailVerified === false
@@ -105,11 +101,10 @@ export default function LoginScreen({ navigation }) {
         onChangeText={(text) => setPassword(text)}
         handlePasswordVisibility={handlePasswordVisibility}
       />
-      {loginError ? <ErrorMessage error={loginError} visible={true} /> : null}
       <Button
         onPress={onLogin}
         backgroundColor="#CEF8F8"
-        title="Log In"
+        title="LogIn"
         titleColor="#00D6D8"
         titleSize={16}
         containerStyle={{

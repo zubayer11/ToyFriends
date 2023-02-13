@@ -1,17 +1,17 @@
 import React from "react";
 import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import AppButton from "../components/AppButton";
+import colors from "../configs/colors";
 
-function WelcomeScreen(props) {
+const WelcomeScreen = () => {
   return (
     <ImageBackground
       blurRadius={2.5}
       style={styles.background}
-      source={require("../assets/background.jpg")}
     >
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require("../assets/logo-red.png")} />
-        <Text style={styles.tagLine}>Sell What You Don't Need</Text>
+        <Image style={styles.logo} source={require("../assets/logo.png")} />
+        <Text style={styles.tagLine}>Share Happiness...</Text>
       </View>
       <View style={styles.buttonsContainer}>
         <AppButton title="Login" />
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
+    color: colors.primary
   },
   buttonsContainer: {
     width: "100%",

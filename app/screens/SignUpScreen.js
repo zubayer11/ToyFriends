@@ -5,17 +5,15 @@ import {
   StyleSheet,
   Text,
   View,
-  Button as RNButton,
   Alert,
 } from "react-native";
-import { getDatabase, ref, onValue, set } from "firebase/database";
-
+import { getDatabase, ref, set } from "firebase/database";
 import CircularProgressTracker from "../components/CircularProgressTracker";
-import { Button, InputField, ErrorMessage } from "../components";
-import Firebase from "../config/firebase";
-import colors from "../config/colors";
+import { Button, InputField } from "../components";
+import auth from "../configs/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import colors from "../configs/colors";
 
-const auth = Firebase.auth();
 
 function createUserInDB(name, email) {
   const db = getDatabase(Firebase);
@@ -35,7 +33,6 @@ export default function SignupScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState("eye");
-  const [signupError, setSignupError] = useState("");
   const [busy, setBusy] = useState(false);
   const handlePasswordVisibility = () => {
     if (rightIcon === "eye") {
@@ -51,7 +48,7 @@ export default function SignupScreen({ navigation }) {
     setBusy(true);
     try {
       if (name !== "" && email !== "" && password !== "") {
-        await auth.createUserWithEmailAndPassword(email, password);
+        await createUserWithEmailAndPassword(auth, email, password);
         createUserInDB(name, email);
         await auth.currentUser.sendEmailVerification();
         Alert.alert(

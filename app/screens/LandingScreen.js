@@ -1,13 +1,14 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useContext } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import React from "react";
+import { StyleSheet, View, Image } from "react-native";
 import { Button } from "../components";
+
 export default function LandingScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style="dark-content" />
       <Image
-        source={require("../assets/logo_slogan.png")}
+        source={require("../assets/logo-slogan.png")}
         style={styles.logo}
       />
 
